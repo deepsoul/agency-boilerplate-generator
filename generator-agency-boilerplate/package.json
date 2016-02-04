@@ -1,0 +1,27 @@
+{
+  "name": "generator-agency-boilerplate",
+  "version": "0.0.1",
+  "description": "Creates the folder structure of the awesome agency-boilerplate",
+  "homepage": "https://github.com/StephanGerbeth/agency-boilerplate",
+  "repository" : "deepsoul/agency-boilerplate-generator.git",
+  "main" : "app/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Boris Horn",
+    "email": "boris.horn@grabarzundpartner.de",
+    "url": "github.com:deepsoul"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "agency-boilerplate",
+    "webpack"
+  ],
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "yeoman-generator": "^0.22.5",
+    "yosay": "^1.1.0"
+  }
+}
