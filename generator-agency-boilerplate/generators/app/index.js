@@ -108,7 +108,7 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
     }
   },
   install: function() {
-    this.installDependencies();
+    this.npmInstall();
   },
   end: function () {
     this.log(yosay(
