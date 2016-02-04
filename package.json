@@ -16,10 +16,10 @@
       "mocha": true
     }
   },
-  "repository": "deepsoul/generator-agency-boilerplate",
+  "repository": "git@gitlab.grabarzundpartner.de:boris.horn/agency-boilerplate-generator.git",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
   },
-  "license": "Apache-2.0"
+  "license": "GPL-3.0"
 }
