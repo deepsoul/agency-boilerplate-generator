@@ -75,9 +75,7 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
       //this.directory(this.templatePath('_env'),this.destinationPath('env'), {destination: this.destination});
         this.fs.copy(
             this.templatePath('env/config/local.json'),
-            this.destinationPath('env/config/local.json'), {
-                name: this.name
-            }
+            this.destinationPath('env/config/local.json')
         );
         this.fs.copy(
             this.templatePath('env/config/tasks.json'),
