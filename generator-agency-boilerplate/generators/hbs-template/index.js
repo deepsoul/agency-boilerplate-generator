@@ -33,7 +33,7 @@ var HbsTemplateGenerator = yeoman.Base.extend({
         this.fs.copyTpl(
             this.templatePath('template.hbs'),
             this.destinationPath('src/tmpl/partials/' + this.type +'/' + lowerCaseFirstLetter(this.name) + '.hbs'),  {
-                name: this.name,
+                name: lowerCaseFirstLetter(this.name),
                 ctrlname: capitalizeFirstLetter(this.name)
             }
         );
@@ -41,7 +41,7 @@ var HbsTemplateGenerator = yeoman.Base.extend({
         this.fs.copyTpl(
             this.templatePath('controller.js'),
             this.destinationPath('src/js/partials/' + this.type +'/' + capitalizeFirstLetter(this.name) + '.js'),  {
-                name: this.name,
+                name: lowerCaseFirstLetter(this.name),
                 user: getGitUserInfo(),
                 creation_date: moment()
             }
@@ -50,7 +50,7 @@ var HbsTemplateGenerator = yeoman.Base.extend({
         this.fs.copyTpl(
             this.templatePath('postcss.pcss'),
             this.destinationPath('src/pcss/partials/' + this.type + '/' + lowerCaseFirstLetter(this.name) + '.pcss'),  {
-                name: this.name
+                name: lowerCaseFirstLetter(this.name)
             }
         );
     },
