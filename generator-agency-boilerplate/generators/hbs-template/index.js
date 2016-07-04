@@ -19,8 +19,25 @@ var HbsTemplateGenerator = yeoman.Base.extend({
             name: 'name',
             message: 'template\'s name ?'
         },{
-            name: 'type',
-            message: 'template\'s type ?'
+          type: 'checkbox',
+          name: 'type',
+          message: 'package\'s type ?',
+          choices: [
+            {
+              value: 'component',
+              name: 'components',
+              checked: false
+            }
+            , {
+              value: 'fragment',
+              name: 'fragments',
+              checked: false
+            },
+          {
+            value: 'element',
+            name: 'elements',
+            checked: false
+          }]
         }];
 
         this.prompt(prompts, function (props) {

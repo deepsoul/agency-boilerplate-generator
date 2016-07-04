@@ -1,0 +1,36 @@
+{
+	"name": "agency-pkg-falling-blocks",
+	"version": "0.0.1",
+	"description": "agency - frontend package falling-blocks",
+	"keywords": [
+		"boilerplate",
+		"package",
+		"base"
+	],
+	"homepage": "https://github.com/ThornWalli/agency-pkg-falling-blocks#readme",
+	"bugs": {
+		"url": "https://github.com/ThornWalli/agency-pkg-falling-blocks/issues"
+	},
+	"license": "MIT",
+	"author": "Thorn Walli <lammpee@gmail.com>",
+	"contributors": [
+		{
+			"name": "Thorn Walli",
+			"email": "lammpee@gmail.com; thorn.walli@grabarzundpartner.de"
+		}
+	],
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/StephanGerbeth/agency-pkg-falling-blocks.git"
+	},
+	"scripts": {
+		"install": "node ./install.js",
+		"dev": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=node_modules/agency-boilerplate/env/config/tasks.json --env=package-development --server=agency-server",
+		"prod": "node node_modules/gulp/bin/gulp run --serverConfig=node_modules/agency-boilerplate/env/config/local.json --configTasks=node_modules/agency-boilerplate/env/config/tasks.json --env=production --server=agency-server"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"agency-boilerplate": "git+https://git@github.com/StephanGerbeth/agency-boilerplate.git#feature/packages"
+	}
+}

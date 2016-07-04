@@ -1,0 +1,39 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #333;
+}
+html.blocks-active {}
+.partial[data-partial="components/falling-blocks"] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  >div {
+    box-shadow: 0 0 3em 0em rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    overflow: hidden;
+    &:before {
+      content: "";
+      display: block;
+      padding-top: calc((( 10 / 18 ) + 1) * 100)%;
+    }
+    /*margin-top: ;*/
+    max-width: calc(480 / 16)em;
+    /*background: red;*/
+    /*&:before {
+      content: "";
+      display: block;
+      padding-top: calc((1024 / 768) * 100)%;
+    }*/
+    background: #000000;
+    /*height: 736px;*/
+    canvas {}
+  }
+}
