@@ -1,4 +1,5 @@
 node_modules
 generator-agency-boilerplate/node_modules
+generator-agency-boilerplate/generators/app/templates/git-zip
 coverage
 .idea

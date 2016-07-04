@@ -3,6 +3,26 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var extract = require('extract-zip');
+var gitData = [
+  {
+   "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.1.zip",
+   "zip" : "2.1.zip",
+   "unzipped" : "agency-boilerplate-version-2.1"
+  },
+  {
+   "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.0.zip",
+   "zip" : "2.0.zip",
+   "unzipped" : "agency-boilerplate-version-2.0"
+ },{
+  "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip",
+  "zip" : "master.zip",
+  "unzipped" : "agency-boilerplate-master"
+ }
+
+
+];
+
+var repo = {};
 
 var AgencyBoilerplateGenerator = yeoman.Base.extend({
 
@@ -21,11 +41,37 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
       name: 'git',
       message: 'Would you like to init an empty git repo?',
       default: true
-    }];
+    },
+    {
+      type: 'checkbox',
+      name: 'gitRepo',
+      message: 'What Git-Repo you would to clone?',
+      choices: [
+        {
+          value: 'version/2.1',
+          name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.1.zip',
+          checked: false
+        }
+        , {
+          value: 'version/2.0',
+          name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.0.zip',
+          checked: false
+        },
+      {
+        value: 'master',
+        name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip',
+        checked: false
+      },
+
+
+
+    ]
+  }];
 
     this.prompt(prompts, function (props) {
       this.name = props.name;
       this.git = props.git;
+      this.gitRepo = props.gitRepo;
       done();
     }.bind(this));
 
@@ -47,17 +93,48 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
     src : function() {
       var self = this;
       var done = this.async();
-      this.fetch('https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip',
+      self.repo = {};
+      this.log(
+          chalk.magenta( 'checking out... ', self.gitRepo )
+      );
+
+// switch (self.gitRepo) {
+//
+//   case 'version/2.1':
+//     self.repo = gitData[0];
+//     break;
+//     case 'version/2.0':
+//       self.repo = gitData[1];
+//       break;
+//     case 'master':
+//       self.repo = gitData[2];
+//       break;
+//
+//
+// }
+
+      if(self.gitRepo == 'version/2.0') {
+        self.repo = gitData[1];
+      }else if(self.gitRepo == 'version/2.1'){
+        self.repo = gitData[0];
+      }
+      else if(self.gitRepo == 'master'){
+        self.repo = gitData[2];
+      }
+      this.log(
+          chalk.magenta( 'Clone...' + self.repo.url )
+      );
+      this.fetch(self.repo.url,
           this.templatePath('git-zip'),
           function() {
-            extract(self.templatePath('git-zip/master.zip'), {dir: self.templatePath('git-zip/unzipped')}, function (err) {
+            extract(self.templatePath('git-zip/' + self.repo.zip), {dir: self.templatePath('git-zip/unzipped')}, function (err) {
               // extraction is complete. make sure to handle the err
               if(err) {
                 self.log(yosay(
                     'Oooops - there was an error!'
                 ));
               }else {
-                self.directory(self.templatePath('git-zip/unzipped/agency-boilerplate-master/src'),self.destinationPath('src'));
+                self.directory(self.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/src'),self.destinationPath('src'));
                 done();
               }
             })
@@ -65,70 +142,73 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
     },
     //Copy the configuration files
     config: function () {
+        var self = this;
       this.fs.copyTpl(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/package.json'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/package.json'),
           this.destinationPath('package.json'), {
             name: this.name
           }
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/.editorconfig'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/.editorconfig'),
           this.destinationPath('.editorconfig')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/.gitignore'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/.gitignore'),
           this.destinationPath('.gitignore')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/gulpfile.js'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/gulpfile.js'),
           this.destinationPath('gulpfile.js')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/.jshintrc'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/.jshintrc'),
           this.destinationPath('.jshintrc')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/.modernizrrc'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/.modernizrrc'),
           this.destinationPath('.modernizrrc')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/.travis.yml'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/.travis.yml'),
           this.destinationPath('.travis.yml')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/app.json'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/app.json'),
           this.destinationPath('app.json')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/appveyor.yml'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/appveyor.yml'),
           this.destinationPath('appveyor.yml')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/Procfile'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/Procfile'),
           this.destinationPath('Procfile')
       );
       this.fs.copy(
-          this.templatePath('git-zip/unzipped/agency-boilerplate-master/README.md'),
+          this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/README.md'),
           this.destinationPath('README.md')
       );
 
     },
     //Copy the enviroment files
     enviroment : function() {
+        var self = this;
       //this.directory(this.templatePath('_env'),this.destinationPath('env'), {destination: this.destination});
         this.fs.copy(
-            this.templatePath('git-zip/unzipped/agency-boilerplate-master/env/config/local.json'),
+            this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/env/config/local.json'),
             this.destinationPath('env/config/local.json')
         );
         this.fs.copy(
-            this.templatePath('git-zip/unzipped/agency-boilerplate-master/env/config/tasks.json'),
+            this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/env/config/tasks.json'),
             this.destinationPath('env/config/tasks.json'), {
                 name: this.name
             }
         );
     },
     routes : function() {
-      this.directory(this.templatePath('git-zip/unzipped/agency-boilerplate-master/env/routes'),this.destinationPath('env/routes'));
+        var self = this;
+      this.directory(this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/env/routes'),this.destinationPath('env/routes'));
     },
 
   },

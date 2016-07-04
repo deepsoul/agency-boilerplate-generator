@@ -6,6 +6,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var moment = require('moment');
 var shelljs = require('shelljs');
+var _ = require('lodash');
 
 var HbsTemplateGenerator = yeoman.Base.extend({
     prompting: function() {
@@ -34,14 +35,16 @@ var HbsTemplateGenerator = yeoman.Base.extend({
             this.templatePath('template.hbs'),
             this.destinationPath('src/tmpl/partials/' + this.type +'/' + lowerCaseFirstLetter(this.name) + '.hbs'),  {
                 name: lowerCaseFirstLetter(this.name),
-                ctrlname: capitalizeFirstLetter(this.name)
+                type: lowerCaseFirstLetter(this.type),
+                ctrlname: capitalizeFirstLetter(_.camelCase(this.name))
             }
         );
 
         this.fs.copyTpl(
             this.templatePath('controller.js'),
-            this.destinationPath('src/js/partials/' + this.type +'/' + capitalizeFirstLetter(this.name) + '.js'),  {
+            this.destinationPath('src/js/partials/' + this.type +'/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'),  {
                 name: lowerCaseFirstLetter(this.name),
+                type: lowerCaseFirstLetter(this.type),
                 user: getGitUserInfo(),
                 creation_date: moment()
             }
@@ -50,7 +53,8 @@ var HbsTemplateGenerator = yeoman.Base.extend({
         this.fs.copyTpl(
             this.templatePath('postcss.pcss'),
             this.destinationPath('src/pcss/partials/' + this.type + '/' + lowerCaseFirstLetter(this.name) + '.pcss'),  {
-                name: lowerCaseFirstLetter(this.name)
+                name: lowerCaseFirstLetter(this.name),
+                type: lowerCaseFirstLetter(this.type)
             }
         );
     },
