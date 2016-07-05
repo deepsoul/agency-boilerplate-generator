@@ -4,7 +4,7 @@
   "description": "Creates the folder structure of the awesome agency-boilerplate",
   "homepage": "https://github.com/StephanGerbeth/agency-boilerplate",
   "repository": "http://gitlab.grabarzundpartner.de/boris.horn/agency-boilerplate-generator.git",
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "license": "MIT",
   "author": {
     "name": "Boris Horn",
