@@ -98,20 +98,7 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
           chalk.magenta( 'checking out... ', self.gitRepo )
       );
 
-// switch (self.gitRepo) {
-//
-//   case 'version/2.1':
-//     self.repo = gitData[0];
-//     break;
-//     case 'version/2.0':
-//       self.repo = gitData[1];
-//       break;
-//     case 'master':
-//       self.repo = gitData[2];
-//       break;
-//
-//
-// }
+
 
       if(self.gitRepo == 'version/2.0') {
         self.repo = gitData[1];

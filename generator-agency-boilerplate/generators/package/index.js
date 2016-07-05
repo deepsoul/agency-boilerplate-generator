@@ -47,12 +47,12 @@ var Package =  yeoman.Base.extend({
       );
       done();
 
+    }else {
+      done();
     }
   },
 
   writing: function () {
-
-
 
     this.fs.copyTpl(
       this.templatePath('blueprint/**'),
@@ -60,33 +60,25 @@ var Package =  yeoman.Base.extend({
       {  globOptions: { dot: true } }
     );
 
-    // init: function() {
-    // var done = this.async();
-    //   if(this.git) {
-    //     this.spawnCommand('git', ['init']);
-    //     this.log(
-    //         chalk.magenta( 'git repo succesfully initialized' )
-    //     );
-    //     done();
-    //
-    //   }
-    // },
-    // src:function() {
-    //
-    //
-    //   done();
-    // }
 
+
+  },
+
+  install: function() {
+
+    this.log(
+        chalk.magenta( 'Install npm packages for package ' + this.prefix +'-pkg-' + this.name + ' - Takes a bit ;-) ')
+    );
+    this.destinationRoot('src/packages/' + this.prefix +'-pkg-' + this.name);
+    this.npmInstall();
   },
   end: function () {
       if(this.git) {
-          this.spawnCommand('git', ['init']);
           this.spawnCommand('git', ['add', '--all']);
       }
 
-
       this.log(yosay(
-          'It\'s all done! Package build.'
+          'It\'s all done! package build.'
       ));
   }
 });
