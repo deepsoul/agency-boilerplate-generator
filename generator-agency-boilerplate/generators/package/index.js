@@ -21,7 +21,7 @@ var Package =  yeoman.Base.extend({
       {
           name: 'prefix',
           message: 'package\'s prefix ?',
-          default: 'agency-pkg'
+          default: 'agency'
       },{
         type: 'confirm',
         name: 'git',

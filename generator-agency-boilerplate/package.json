@@ -1,6 +1,6 @@
 {
   "name": "generator-agency-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Creates the folder structure of the awesome agency-boilerplate",
   "homepage": "https://github.com/StephanGerbeth/agency-boilerplate",
   "repository": "https://github.com/deepsoul/agency-boilerplate-generator",
@@ -8,8 +8,8 @@
   "license": "MIT",
   "author": {
     "name": "Boris Horn",
-    "email": "boris.horn@grabarzundpartner.de",
-    "url": "gitlab.grabarzundpartner.de:boris.horn"
+    "email": "horn.boris@gmail.com",
+    "url": "https://github.com/deepsoul"
   },
   "files": [
     "generators"

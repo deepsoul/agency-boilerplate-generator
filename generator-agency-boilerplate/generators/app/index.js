@@ -17,6 +17,11 @@ var gitData = [
   "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip",
   "zip" : "master.zip",
   "unzipped" : "agency-boilerplate-master"
+},
+ {
+   "url" : "https://github.com/StephanGerbeth/agency-boilerplate/archive/feature/packages.zip",
+   "zip" : "packages.zip",
+   "unzipped" : "agency-boilerplate-feature-packages"
  }
 
 
@@ -61,7 +66,11 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
         value: 'master',
         name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip',
         checked: false
-      },
+      },{
+        value: 'feature-packages',
+        name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/feature/packages.zip',
+        checked: false
+      }
 
 
 
@@ -82,11 +91,14 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
     var done = this.async();
       if(this.git) {
         this.spawnCommand('git', ['init']);
+
         this.log(
             chalk.magenta( 'git repo succesfully initialized' )
         );
         done();
 
+      }else {
+        done();
       }
     },
 
@@ -107,6 +119,9 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
       }
       else if(self.gitRepo == 'master'){
         self.repo = gitData[2];
+      }
+      else if(self.gitRepo == 'feature-packages'){
+        self.repo = gitData[3];
       }
       this.log(
           chalk.magenta( 'Clone...' + self.repo.url )
@@ -202,7 +217,7 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
   install: function() {
 
     this.log(
-        chalk.magenta( 'Install npm packages - Takes a bit ;-) ')
+        chalk.magenta( 'Install npm packages - Takes a bit ;-) ' +  this.gitRepo)
     );
     this.npmInstall();
   },
