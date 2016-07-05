@@ -2,7 +2,7 @@
 > this yeoman-generator is a very easy way to install the agency-boilerplate.
 
 ### Version
-0.0.1
+0.0.3
 
 
 ### Installation
@@ -11,15 +11,9 @@ You need yeoman installed globally:
 
 ```bash
 $ npm i -g yo
+$ npm i -g generator-agency-boilerplate
 ```
 
-After installing the NPM packages, you have to link the generator to make it available in your system
-
-```bash
-$ cd generator-agency-boilerplate
-$ npm i
-$ npm link
-```
 
 ### Usage
 download the core boilerplate

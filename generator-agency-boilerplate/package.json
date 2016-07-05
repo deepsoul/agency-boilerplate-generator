@@ -1,9 +1,9 @@
 {
   "name": "generator-agency-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Creates the folder structure of the awesome agency-boilerplate",
   "homepage": "https://github.com/StephanGerbeth/agency-boilerplate",
-  "repository": "http://gitlab.grabarzundpartner.de/boris.horn/agency-boilerplate-generator.git",
+  "repository": "https://github.com/deepsoul/agency-boilerplate-generator",
   "main": "generators/app/index.js",
   "license": "MIT",
   "author": {
