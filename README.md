@@ -1,21 +1,43 @@
-<<<<<<< HEAD
 # generator-agency-boilerplate [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> Creates the folder structure of the awesome agency-boilerplate
+# yeoman agency-boilerplate-generator
+> this yeoman-generator is a very easy way to install the agency-boilerplate.
 
-## Installation
+### Version
+0.0.1
 
-First, install [Yeoman](http://yeoman.io) and generator-agency-boilerplate using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
-```bash
-npm install -g yo
-npm install -g generator-agency-boilerplate
-```
+### Installation
 
-Then generate your new project:
+You need yeoman installed globally:
 
 ```bash
-yo agency-boilerplate
+$ npm i -g yo
 ```
+
+After installing the NPM packages, you have to link the generator to make it available in your system
+
+```bash
+$ cd generator-agency-boilerplate
+$ npm i
+$ npm link
+```
+
+### Usage
+download the core boilerplate
+```bash
+$ yo agency-boilerplate
+```
+
+create a hbs-template
+```bash
+$ yo agency-boilerplate:hbs-template
+```
+
+create a package
+```bash
+$ yo agency-boilerplate:package
+```
+
 
 ## Getting To Know Yeoman
 
