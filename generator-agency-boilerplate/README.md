@@ -1,5 +1,5 @@
 # yeoman agency-boilerplate-generator
-this yeoman-generator is a very easy way to install the agency-boilerplate.
+> this yeoman-generator is a very easy way to install the agency-boilerplate.
 
 ### Version
 0.0.1
@@ -9,13 +9,13 @@ this yeoman-generator is a very easy way to install the agency-boilerplate.
 
 You need yeoman installed globally:
 
-```sh
+```bash
 $ npm i -g yo
 ```
 
 After installing the NPM packages, you have to link the generator to make it available in your system
 
-```sh
+```bash
 $ cd generator-agency-boilerplate
 $ npm i
 $ npm link
@@ -23,16 +23,16 @@ $ npm link
 
 ### Usage
 download the core boilerplate
-```sh
+```bash
 $ yo agency-boilerplate
 ```
 
 create a hbs-template
-```sh
+```bash
 $ yo agency-boilerplate:hbs-template
 ```
 
 create a package
-```sh
+```bash
 $ yo agency-boilerplate:package
 ```

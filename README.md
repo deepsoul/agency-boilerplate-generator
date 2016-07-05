@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # generator-agency-boilerplate [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Creates the folder structure of the awesome agency-boilerplate
 
@@ -33,3 +34,7 @@ Apache-2.0 © [Boris Horn]()
 [daviddm-url]: https://david-dm.org/deepsoul/generator-agency-boilerplate
 [coveralls-image]: https://coveralls.io/repos/deepsoul/generator-agency-boilerplate/badge.svg
 [coveralls-url]: https://coveralls.io/r/deepsoul/generator-agency-boilerplate
+=======
+# agency-boilerplate-generator
+Yeoman Generator for agency-boilerplate
+>>>>>>> 5f6c7e919e71adbc4c55caaf11814b0f022dafde
