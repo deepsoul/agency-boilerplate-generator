@@ -24,44 +24,51 @@ var HbsTemplateGenerator = yeoman.Base.extend({
           message: 'package\'s type ?',
           choices: [
             {
-              value: 'component',
-              name: 'components',
+              value: 'components',
+              name: 'component',
               checked: false
             }
             , {
-              value: 'fragment',
-              name: 'fragments',
+              value: 'fragments',
+              name: 'fragment',
               checked: false
             },
           {
-            value: 'element',
-            name: 'elements',
+            value: 'elements',
+            name: 'element',
             checked: false
           }]
+        }, {
+            name: 'directory',
+            message: 'subfolder\'s name ?'
         }];
 
         this.prompt(prompts, function (props) {
             this.name = props.name;
-            this.type = props.type;
+            this.directory = getDirectoryFolder(props.directory);
+            this.type = props.type[0];
             done();
         }.bind(this));
     },
 
     writing : function() {
+
         this.fs.copyTpl(
             this.templatePath('template.hbs'),
-            this.destinationPath('src/tmpl/partials/' + this.type +'/' + lowerCaseFirstLetter(this.name) + '.hbs'),  {
+            this.destinationPath('src/tmpl/partials/' + this.type + this.directory +'/' + lowerCaseFirstLetter(this.name) + '.hbs'),  {
                 name: lowerCaseFirstLetter(this.name),
                 type: lowerCaseFirstLetter(this.type),
+                directory: this.directory,
                 ctrlname: capitalizeFirstLetter(_.camelCase(this.name))
             }
         );
 
         this.fs.copyTpl(
             this.templatePath('controller.js'),
-            this.destinationPath('src/js/partials/' + this.type +'/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'),  {
+            this.destinationPath('src/js/partials/' + this.type + this.directory  +'/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'),  {
                 name: lowerCaseFirstLetter(this.name),
                 type: lowerCaseFirstLetter(this.type),
+                directory: this.directory,
                 user: getGitUserInfo(),
                 creation_date: moment()
             }
@@ -69,8 +76,9 @@ var HbsTemplateGenerator = yeoman.Base.extend({
 
         this.fs.copyTpl(
             this.templatePath('postcss.pcss'),
-            this.destinationPath('src/pcss/partials/' + this.type + '/' + lowerCaseFirstLetter(this.name) + '.pcss'),  {
+            this.destinationPath('src/pcss/partials/' + this.type + this.directory + '/' + lowerCaseFirstLetter(this.name) + '.pcss'),  {
                 name: lowerCaseFirstLetter(this.name),
+                directory: this.directory,
                 type: lowerCaseFirstLetter(this.type)
             }
         );
@@ -103,7 +111,16 @@ function capitalizeFirstLetter(string) {
 }
 
 function lowerCaseFirstLetter(string) {
+
     return string.charAt(0).toLocaleLowerCase() + string.slice(1);
+}
+
+function getDirectoryFolder(folder) {
+    if(folder != '') {
+        return '/' + folder;
+    }else {
+        return '';
+    }
 }
 
 module.exports = HbsTemplateGenerator;

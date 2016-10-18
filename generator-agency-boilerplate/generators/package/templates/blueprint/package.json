@@ -1,28 +1,28 @@
 {
-	"name": "agency-pkg-falling-blocks",
+	"name": "<%= name %>",
 	"version": "0.0.1",
-	"description": "agency - frontend package falling-blocks",
+	"description": "",
 	"keywords": [
 		"boilerplate",
 		"package",
 		"base"
 	],
-	"homepage": "https://github.com/ThornWalli/agency-pkg-falling-blocks#readme",
+	"homepage": "",
 	"bugs": {
-		"url": "https://github.com/ThornWalli/agency-pkg-falling-blocks/issues"
+		"url": ""
 	},
 	"license": "MIT",
-	"author": "Thorn Walli <lammpee@gmail.com>",
+	"author": "<%= user.name %> <<%= user.email %>>",
 	"contributors": [
 		{
-			"name": "Thorn Walli",
-			"email": "lammpee@gmail.com; thorn.walli@grabarzundpartner.de"
+			"name": "<%= user.name %>",
+			"email": "<%= user.email %>"
 		}
 	],
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/StephanGerbeth/agency-pkg-falling-blocks.git"
+		"url": ""
 	},
 	"scripts": {
 		"install": "node ./install.js",

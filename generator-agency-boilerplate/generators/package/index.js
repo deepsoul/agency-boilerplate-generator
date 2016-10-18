@@ -57,8 +57,29 @@ var Package =  yeoman.Base.extend({
     this.fs.copyTpl(
       this.templatePath('blueprint/**'),
       this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name),
-      {  globOptions: { dot: true } }
+      { name: this.prefix +'-pkg-' + this.name,
+        user: getGitUserInfo(),
+        globOptions: { dot: true } }
     );
+
+    this.fs.copy(
+        this.templatePath('blueprint/.editorconfig'),
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.editorconfig')
+    );
+    this.fs.copy(
+        this.templatePath('blueprint/.gitignore'),
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.gitignore')
+    );
+    this.fs.copy(
+        this.templatePath('blueprint/.jshintrc'),
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.jshintrc')
+    );
+    this.fs.copy(
+        this.templatePath('blueprint/.modernizrrc'),
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.modernizrrc')
+    );
+
+
 
 
 
@@ -82,5 +103,14 @@ var Package =  yeoman.Base.extend({
       ));
   }
 });
+
+function getGitUserInfo() {
+    // Get user info from .gitconfig if available
+    return info = {
+        name: shelljs.exec('git config user.name', {silent: true}).output.replace(/\n/g, ''),
+        email: shelljs.exec('git config user.email', {silent: true}).output.replace(/\n/g, ''),
+        github: shelljs.exec('git config github.user', {silent: true}).output.replace(/\n/g, ''),
+    };
+}
 
 module.exports = Package;

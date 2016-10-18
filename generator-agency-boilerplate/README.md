@@ -2,7 +2,13 @@
 > this yeoman-generator is a very easy way to install the agency-boilerplate.
 
 ### Version
-0.0.4
+0.0.8
+
+### Updates Version 0.0.8
+Generation of subfolders
+
+### Issues
+when generating subfolders, the pathes in the generated JS-Controller must be edited to match
 
 
 ### Installation
