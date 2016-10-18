@@ -3,7 +3,7 @@
 > this yeoman-generator is a very easy way to install the agency-boilerplate.
 
 ### Version
-0.0.1
+0.0.6
 
 
 ### Installation
