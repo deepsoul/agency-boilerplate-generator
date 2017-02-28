@@ -40,6 +40,8 @@ node_modules
 node_modules_old
 /dev
 /build
+/export
 /generated
 /production
-/src/js/packages*
+/test/js/packages.*
+/test/pcss/partials.*

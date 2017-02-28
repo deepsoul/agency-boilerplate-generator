@@ -11,7 +11,7 @@ var Package =  yeoman.Base.extend({
   prompting: function() {
       var done = this.async();
       this.log(yosay(
-          'Creating a agency-boilerplate Package!'
+          'Creating a agency-boilerplate package (blueprint)!'
       ));
 
       var prompts = [{
@@ -55,7 +55,7 @@ var Package =  yeoman.Base.extend({
   writing: function () {
 
     this.fs.copyTpl(
-      this.templatePath('blueprint/**'),
+      this.templatePath('blueprint/!**'),
       this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name),
       { name: this.prefix +'-pkg-' + this.name,
         user: getGitUserInfo(),
@@ -64,26 +64,85 @@ var Package =  yeoman.Base.extend({
 
     this.fs.copy(
         this.templatePath('blueprint/.editorconfig'),
-        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.editorconfig')
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.editorconfig')
     );
     this.fs.copy(
         this.templatePath('blueprint/.gitignore'),
-        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.gitignore')
+        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.gitignore')
     );
-    this.fs.copy(
-        this.templatePath('blueprint/.jshintrc'),
-        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.jshintrc')
-    );
-    this.fs.copy(
-        this.templatePath('blueprint/.modernizrrc'),
-        this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '.modernizrrc')
-    );
+      this.fs.copy(
+          this.templatePath('blueprint/.jshintrc'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.jshintrc')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/.modernizrrc'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.modernizrrc')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/.node-version'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.node-version')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/.npmignore'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/.npmignore')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/gulpfile.js'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/gulpfile.js')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/install.js'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/install.js')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/LICENSE'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/LICENSE')
+      );
+      this.fs.copy(
+          this.templatePath('blueprint/package.json'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/package.json')
+      );
+
+      this.fs.copyTpl(
+          this.templatePath('blueprint/package.json'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/package.json'),  {
+              pkgName: this.prefix +'-pkg-' + this.name,
+              user: getGitUserInfo()
+          }
+      );
+
+      this.fs.copy(
+          this.templatePath('blueprint/Procfile'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/Procfile')
+      );
 
 
 
+
+      this.fs.copyTpl(
+          this.templatePath('blueprint/README.md'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/README.md'),  {
+              pkgName: this.prefix +'-pkg-' + this.name,
+              user: getGitUserInfo()
+          }
+      );
+      this.directory(this.templatePath('blueprint/src'),
+      this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/src'));
+
+
+      this.fs.copy(
+          this.templatePath('blueprint/env/config/agency/tasks.json'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/env/config/agency/tasks.json'), {
+              name: this.name
+          }
+      );
+
+      this.directory(this.templatePath('blueprint/test'),
+      this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/test'));
 
 
   },
+
 
   install: function() {
 
@@ -99,7 +158,7 @@ var Package =  yeoman.Base.extend({
       }
 
       this.log(yosay(
-          'It\'s all done! package build.'
+          'It\'s all done! package blueprint ('+ this.prefix +'-pkg-' + this.name +') is ready to use.'
       ));
   }
 });

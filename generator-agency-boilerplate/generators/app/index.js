@@ -210,7 +210,7 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
     },
     routes : function() {
         var self = this;
-      this.directory(this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/env/routes'),this.destinationPath('env/routes'));
+        this.directory(this.templatePath('git-zip/unzipped/'+ self.repo.unzipped +'/env/routes'),this.destinationPath('env/routes'));
     },
 
   },
