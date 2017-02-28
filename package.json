@@ -16,7 +16,7 @@
       "mocha": true
     }
   },
-  "repository": "git@gitlab.grabarzundpartner.de:boris.horn/agency-boilerplate-generator.git",
+  "repository": "https://github.com/deepsoul/agency-boilerplate-generator",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
