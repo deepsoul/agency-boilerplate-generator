@@ -98,10 +98,7 @@ var Package =  yeoman.Base.extend({
           this.templatePath('blueprint/LICENSE'),
           this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/LICENSE')
       );
-      this.fs.copy(
-          this.templatePath('blueprint/package.json'),
-          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/package.json')
-      );
+
 
       this.fs.copyTpl(
           this.templatePath('blueprint/package.json'),
@@ -129,6 +126,9 @@ var Package =  yeoman.Base.extend({
       this.directory(this.templatePath('blueprint/src'),
       this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/src'));
 
+      this.directory(this.templatePath('blueprint/test'),
+          this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/test'));
+
 
       this.fs.copy(
           this.templatePath('blueprint/env/config/agency/tasks.json'),
@@ -137,8 +137,7 @@ var Package =  yeoman.Base.extend({
           }
       );
 
-      this.directory(this.templatePath('blueprint/test'),
-      this.destinationPath('src/packages/' + this.prefix +'-pkg-' + this.name + '/test'));
+
 
 
   },
