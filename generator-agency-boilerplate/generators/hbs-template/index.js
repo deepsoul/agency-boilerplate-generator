@@ -39,6 +39,38 @@ var HbsTemplateGenerator = yeoman.Base.extend({
             checked: false
           }]
         }, {
+            type: 'checkbox',
+            name: 'withController',
+            message: 'wanna have a JS-Controller?',
+            choices: [
+                {
+                    value: true,
+                    name: 'controller',
+                    checked: false
+                }
+                , {
+                    value: false,
+                    name: 'no Controller',
+                    checked: false
+                }
+            ]
+        }, {
+            type: 'checkbox',
+            name: 'jsVersion',
+            message: 'JS Version',
+            choices: [
+                {
+                    value: 'es5',
+                    name: 'es5',
+                    checked: false
+                }
+                , {
+                    value: 'es6',
+                    name: 'es6',
+                    checked: false
+                }
+            ]
+        }, {
             name: 'directory',
             message: 'subfolder\'s name ?'
         }];
@@ -47,32 +79,60 @@ var HbsTemplateGenerator = yeoman.Base.extend({
             this.name = props.name;
             this.directory = getDirectoryFolder(props.directory);
             this.type = props.type[0];
+            this.withController = props.withController[0];
+            this.jsVersion = props.jsVersion[0];
             done();
         }.bind(this));
     },
 
     writing : function() {
 
-        this.fs.copyTpl(
-            this.templatePath('template.hbs'),
-            this.destinationPath('src/tmpl/partials/' + this.type + this.directory +'/' + lowerCaseFirstLetter(this.name) + '.hbs'),  {
-                name: lowerCaseFirstLetter(this.name),
-                type: lowerCaseFirstLetter(this.type),
-                directory: this.directory,
-                ctrlname: capitalizeFirstLetter(_.camelCase(this.name))
+        if(this.withController) {
+            this.fs.copyTpl(
+                this.templatePath('template.hbs'),
+                this.destinationPath('src/tmpl/partials/' + this.type + this.directory + '/' + lowerCaseFirstLetter(this.name) + '.hbs'), {
+                    name: lowerCaseFirstLetter(this.name),
+                    type: lowerCaseFirstLetter(this.type),
+                    directory: this.directory,
+                    ctrlname: capitalizeFirstLetter(_.camelCase(this.name))
+                }
+            );
+            console.log(this.jsVersion);
+            if(this.jsVersion === 'es5') {
+                this.fs.copyTpl(
+                    this.templatePath('controller.js'),
+                    this.destinationPath('src/js/partials/' + this.type + this.directory + '/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'), {
+                        name: lowerCaseFirstLetter(this.name),
+                        type: lowerCaseFirstLetter(this.type),
+                        directory: this.directory,
+                        user: getGitUserInfo(),
+                        creation_date: moment()
+                    }
+                );
+            }else if(this.jsVersion === 'es6') {
+                this.fs.copyTpl(
+                    this.templatePath('controller-es6.js'),
+                    this.destinationPath('src/js/partials/' + this.type + this.directory + '/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'), {
+                        name: lowerCaseFirstLetter(this.name),
+                        type: lowerCaseFirstLetter(this.type),
+                        directory: this.directory,
+                        user: getGitUserInfo(),
+                        creation_date: moment()
+                    }
+                );
             }
-        );
 
-        this.fs.copyTpl(
-            this.templatePath('controller.js'),
-            this.destinationPath('src/js/partials/' + this.type + this.directory  +'/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'),  {
-                name: lowerCaseFirstLetter(this.name),
-                type: lowerCaseFirstLetter(this.type),
-                directory: this.directory,
-                user: getGitUserInfo(),
-                creation_date: moment()
-            }
-        );
+        } else {
+            this.fs.copyTpl(
+                this.templatePath('no-controller-template.hbs'),
+                this.destinationPath('src/tmpl/partials/' + this.type + this.directory + '/' + lowerCaseFirstLetter(this.name) + '.hbs'), {
+                    name: lowerCaseFirstLetter(this.name),
+                    type: lowerCaseFirstLetter(this.type),
+                    directory: this.directory
+                }
+            );
+        }
+
 
         this.fs.copyTpl(
             this.templatePath('postcss.pcss'),

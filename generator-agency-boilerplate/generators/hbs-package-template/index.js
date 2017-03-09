@@ -55,6 +55,22 @@ var HbsTemplateGenerator = yeoman.Base.extend({
                 }
             ]
         }, {
+            type: 'checkbox',
+            name: 'jsVersion',
+            message: 'JS Version',
+            choices: [
+                {
+                    value: true,
+                    name: 'es5',
+                    checked: false
+                }
+                , {
+                    value: false,
+                    name: 'es6',
+                    checked: false
+                }
+            ]
+        },{
             name: 'directory',
             message: 'subfolder\'s name ?'
         }];
@@ -64,6 +80,7 @@ var HbsTemplateGenerator = yeoman.Base.extend({
             this.directory = getDirectoryFolder(props.directory);
             this.type = props.type[0];
             this.withController = props.withController[0];
+            this.jsVersion = props.jsVersion[0];
             done();
         }.bind(this));
     },
@@ -94,16 +111,30 @@ var HbsTemplateGenerator = yeoman.Base.extend({
 
 
         if(this.withController) {
-            this.fs.copyTpl(
-                this.templatePath('controller.js'),
-                this.destinationPath('src/js/partials/' + this.type + this.directory + '/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'), {
-                    name: lowerCaseFirstLetter(this.name),
-                    type: lowerCaseFirstLetter(this.type),
-                    directory: this.directory,
-                    user: getGitUserInfo(),
-                    creation_date: moment()
-                }
-            );
+            if(this.jsVersion === 'es5') {
+                this.fs.copyTpl(
+                    this.templatePath('controller.js'),
+                    this.destinationPath('src/js/partials/' + this.type + this.directory + '/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'), {
+                        name: lowerCaseFirstLetter(this.name),
+                        type: lowerCaseFirstLetter(this.type),
+                        directory: this.directory,
+                        user: getGitUserInfo(),
+                        creation_date: moment()
+                    }
+                );
+            }else if(this.jsVersion === 'es6') {
+                this.fs.copyTpl(
+                    this.templatePath('controller-es6.js'),
+                    this.destinationPath('src/js/partials/' + this.type + this.directory + '/' + capitalizeFirstLetter(_.camelCase(this.name)) + '.js'), {
+                        name: lowerCaseFirstLetter(this.name),
+                        type: lowerCaseFirstLetter(this.type),
+                        directory: this.directory,
+                        user: getGitUserInfo(),
+                        creation_date: moment()
+                    }
+                );
+            }
+
         }
 
 

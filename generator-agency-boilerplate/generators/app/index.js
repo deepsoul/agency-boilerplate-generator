@@ -4,16 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var extract = require('extract-zip');
 var gitData = [
-    {
-        "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.1.zip",
-        "zip": "2.1.zip",
-        "unzipped": "agency-boilerplate-version-2.1"
-    },
-    {
-        "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.0.zip",
-        "zip": "2.0.zip",
-        "unzipped": "agency-boilerplate-version-2.0"
-    }, {
+     {
         "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip",
         "zip": "master.zip",
         "unzipped": "agency-boilerplate-master"
@@ -22,6 +13,11 @@ var gitData = [
         "url": "https://github.com/agency-framework/agency-boilerplate/archive/generator/blueprint.zip",
         "zip": "blueprint.zip",
         "unzipped": "agency-boilerplate-generator-blueprint"
+    },
+    {
+        "url": "https://github.com/StephanGerbeth/agency-boilerplate/archive/feature/webpack-2-beta.zip",
+        "zip": "webpack-2-beta.zip",
+        "unzipped": "agency-boilerplate-feature-webpack-2-beta"
     }
 
 
@@ -53,16 +49,6 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
                 message: 'What Git-Repo you would to clone?',
                 choices: [
                     {
-                        value: 'version/2.1',
-                        name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.1.zip',
-                        checked: false
-                    }
-                    , {
-                        value: 'version/2.0',
-                        name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/version/2.0.zip',
-                        checked: false
-                    },
-                    {
                         value: 'master',
                         name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/master.zip',
                         checked: false
@@ -70,8 +56,11 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
                         value: 'package-blueprint',
                         name: 'https://github.com/agency-framework/agency-boilerplate/archive/generator/blueprint.zip',
                         checked: false
+                    }, {
+                        value: 'webpack-2-beta',
+                        name: 'https://github.com/StephanGerbeth/agency-boilerplate/archive/feature/webpack-2-beta.zip',
+                        checked: false
                     }
-
 
                 ]
             }];
@@ -110,16 +99,15 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
             );
 
 
-            if (self.gitRepo == 'version/2.0') {
-                self.repo = gitData[1];
-            } else if (self.gitRepo == 'version/2.1') {
+
+            if (self.gitRepo == 'master') {
                 self.repo = gitData[0];
             }
-            else if (self.gitRepo == 'master') {
-                self.repo = gitData[2];
-            }
             else if (self.gitRepo == 'package-blueprint') {
-                self.repo = gitData[3];
+                self.repo = gitData[1];
+            }
+            else if (self.gitRepo == 'webpack-2-beta') {
+                self.repo = gitData[2];
             }
             this.log(
                 chalk.magenta('Clone...' + self.repo.url)
@@ -167,10 +155,13 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
                     this.templatePath('git-zip/unzipped/' + self.repo.unzipped + '/.jshintrc'),
                     this.destinationPath('.jshintrc')
                 );
+            if (self.gitRepo != 'webpack-2-beta') {
                 this.fs.copy(
                     this.templatePath('git-zip/unzipped/' + self.repo.unzipped + '/.modernizrrc'),
                     this.destinationPath('.modernizrrc')
                 );
+            }
+
                 this.fs.copy(
                     this.templatePath('git-zip/unzipped/' + self.repo.unzipped + '/.travis.yml'),
                     this.destinationPath('.travis.yml')
@@ -197,25 +188,16 @@ var AgencyBoilerplateGenerator = yeoman.Base.extend({
         },
         //Copy the enviroment files
         enviroment: function () {
-            var self = this, configPath, fileNameServer, fileNameConfig;
-            if (self.gitRepo == 'package-blueprint') {
-                fileNameConfig = 'env/config/agency/tasks.json';
-                fileNameServer = 'env/config/agency/server.json';
-            }else {
-                fileNameServer = 'env/config/tasks.json';
-                fileNameConfig = 'env/config/local.json';
-            }
-            //this.directory(this.templatePath('_env'),this.destinationPath('env'), {destination: this.destination});
+
+
+            var self = this;
+
             this.fs.copy(
-                this.templatePath('git-zip/unzipped/' + self.repo.unzipped +'/'+ fileNameServer),
-                this.destinationPath(fileNameServer)
+                this.templatePath(this.templatePath('git-zip/unzipped/' + self.repo.unzipped + '/env/config')),
+                this.destinationPath('env/config')
             );
-            this.fs.copy(
-                this.templatePath('git-zip/unzipped/' + self.repo.unzipped +'/'+  fileNameConfig),
-                this.destinationPath( fileNameConfig), {
-                    name: this.name
-                }
-            );
+
+
         },
         routes: function () {
             var self = this;
